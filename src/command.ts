@@ -45,14 +45,20 @@ function firstSentence(text: string): string {
 }
 
 export function truncate(text: string, limit: number): string {
-  return text.length <= limit ? text : `${text.slice(0, limit - 3).trimEnd()}...`;
+  if (text.length <= limit) {
+    return text;
+  }
+
+  const cut = text.slice(0, limit - 3);
+  const boundary = cut.lastIndexOf(" ");
+  return `${(boundary > limit / 2 ? cut.slice(0, boundary) : cut).trimEnd()}...`;
 }
 
 export function draftFromText(text: string, type: MemoryType, sessionId: string | null): MemoryDraft {
   const sentence = firstSentence(text);
 
   return {
-    title: truncate(sentence.split(/\s+/).slice(0, 8).join(" "), 60),
+    title: truncate(sentence, 60),
     description: truncate(sentence, 160),
     body: text.trim(),
     type,

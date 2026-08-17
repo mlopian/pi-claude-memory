@@ -105,10 +105,17 @@ describe("draftFromText", () => {
     expect(draft.sessionId).toBe("s1");
   });
 
-  it("truncates a long title", () => {
+  it("truncates a long title at a word boundary", () => {
     const draft = draftFromText("word ".repeat(40), "feedback", null);
 
     expect(draft.title.length).toBeLessThanOrEqual(60);
+    expect(draft.title.endsWith("word...")).toBe(true);
     expect(draft.description.length).toBeLessThanOrEqual(160);
+  });
+
+  it("keeps a sentence that fits whole", () => {
+    const draft = draftFromText("Never add Claude attribution to commits or PR descriptions.", "feedback", null);
+
+    expect(draft.title).toBe("Never add Claude attribution to commits or PR descriptions");
   });
 });

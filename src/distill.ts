@@ -35,6 +35,14 @@ function instructionFor(scope: "project" | "global", type: MemoryType): string {
   return `Distill ${target} from the transcript below.${shape}`;
 }
 
+function preview(text: string): string {
+  const collapsed = text.replaceAll(/\s+/g, " ").trim();
+  if (collapsed === "") {
+    return "<empty>";
+  }
+  return collapsed.length <= 200 ? collapsed : `${collapsed.slice(0, 200)}...`;
+}
+
 function extractJson(text: string): DistilledMemory {
   const fenced = /```(?:json)?\s*([\s\S]*?)```/.exec(text);
   const candidate = (fenced ? fenced[1]! : text).trim();
@@ -42,12 +50,12 @@ function extractJson(text: string): DistilledMemory {
   const end = candidate.lastIndexOf("}");
 
   if (start < 0 || end <= start) {
-    throw new Error("The model did not return a JSON object");
+    throw new Error(`The model did not return a JSON object. Response: ${preview(text)}`);
   }
 
   const parsed: unknown = JSON.parse(candidate.slice(start, end + 1));
   if (typeof parsed !== "object" || parsed === null) {
-    throw new Error("The model did not return a JSON object");
+    throw new Error(`The model did not return a JSON object. Response: ${preview(text)}`);
   }
 
   const record = parsed as Record<string, unknown>;
@@ -104,7 +112,7 @@ export async function distillMemory(deps: DistillDeps): Promise<DistilledMemory>
     apiKey: deps.auth?.apiKey,
     headers: deps.auth?.headers,
     signal: deps.signal,
-    maxTokens: 1024,
+    maxTokens: 8192,
     temperature: 0,
   });
 

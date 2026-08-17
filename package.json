@@ -1,6 +1,6 @@
 {
   "name": "pi-claude-memory",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Share Claude Code memory with pi: read CLAUDE.md and project memory, write it back with /remember and /remember-globally",
   "license": "MIT",
   "author": "Maciej Łopian",

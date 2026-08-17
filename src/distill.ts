@@ -43,7 +43,7 @@ function preview(text: string): string {
   return collapsed.length <= 200 ? collapsed : `${collapsed.slice(0, 200)}...`;
 }
 
-function extractJson(text: string): DistilledMemory {
+export function extractJson(text: string): DistilledMemory {
   const fenced = /```(?:json)?\s*([\s\S]*?)```/.exec(text);
   const candidate = (fenced ? fenced[1]! : text).trim();
   const start = candidate.indexOf("{");
@@ -113,7 +113,6 @@ export async function distillMemory(deps: DistillDeps): Promise<DistilledMemory>
     headers: deps.auth?.headers,
     signal: deps.signal,
     maxTokens: 8192,
-    temperature: 0,
   });
 
   return extractJson(messageText(await stream.result()));

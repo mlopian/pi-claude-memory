@@ -11,7 +11,7 @@ The extension does three things:
 ## Install
 
 ```bash
-pi install git:github.com/mlopian/pi-claude-memory@v0.1.1
+pi install git:github.com/mlopian/pi-claude-memory@v0.1.2
 ```
 
 Recommended companion step: symlink pi's global context file to your Claude Code rules, so the global rules still load if the extension is ever disabled.

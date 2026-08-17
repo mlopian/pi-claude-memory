@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mlopian-tl/pi-claude-memory.git"
+    "url": "git+https://github.com/mlopian/pi-claude-memory.git"
   },
   "pi": {
     "extensions": [

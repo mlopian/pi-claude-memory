@@ -1,0 +1,46 @@
+{
+  "name": "pi-claude-memory",
+  "version": "0.1.0",
+  "description": "Share Claude Code memory with pi: read CLAUDE.md and project memory, write it back with /remember and /remember-globally",
+  "license": "MIT",
+  "author": "Maciej Łopian",
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "claude-code",
+    "memory"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlopian-tl/pi-claude-memory.git"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions"
+    ]
+  },
+  "files": [
+    "extensions",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-ai": "^0.83.0",
+    "@earendil-works/pi-coding-agent": "^0.83.0",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}
